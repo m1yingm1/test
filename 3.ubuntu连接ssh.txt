@@ -1,0 +1,18 @@
+1.首先，如果你没有ssh key的话，输入命令：ssh-keygen -t rsa -C "xx@example.com"， youremail@example.com改为自己的邮箱即可，途中会让你输入密码啥的，不需要管，一路回车即可，会生成你的ssh key。（如果重新生成的话会覆盖之前的ssh key。）
+2.然后再执行命令：ssh -v git@github.com
+
+        最后两句会出现：
+
+        No more authentication methods to try.  
+
+        Permission denied (publickey).
+3.这时候再下输入：
+
+　　ssh-agent -s
+4.接着再输入：ssh-add ~/.ssh/id_rsa
+请执行命令：eval `ssh-agent -s`后，继续执行命令 ssh-add ~/.ssh/id_rsa，这时候一般OK了。
+5.打开你刚刚生成的id_rsa.pub，将里面的内容复制，进入你的github账号，在settings下，SSH and GPG keys下new SSH key，title随便取一个名字，然后将id_rsa.pub里的内容复制到Key中，完成后Add SSH Key。
+cat ~/.ssh/id_rsa.pub
+6.最后一步，验证Key
+
+输入命令：ssh -T git@github.com
