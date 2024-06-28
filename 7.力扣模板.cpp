@@ -1,9 +1,9 @@
 
 //力扣模板
-1.按照周赛分数刷题：https://huxulm.github.io/lc-rating/
+按照周赛分数刷题：https://huxulm.github.io/lc-rating/
 
 
-//【模板】恰好装满型 0 - 1 背包
+1.//【模板】恰好装满型 0 - 1 背包
 class Solution {
 public:
 	int lengthOfLongestSubsequence(vector<int>& nums, int target) {
