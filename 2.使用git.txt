@@ -2,6 +2,10 @@ git add .  //后面是圆点，add和圆点之间有空格。这句话通俗理�
 git commit  -m  "提交信息"  //提交信息可以换成你需要的，不过目前还没发现这个有什么用！
 git push -u origin main   //此操作是把本地仓库push到github上面，第一次需要你输入帐号和密码
 
+//unable to access 'https://github.com/m1yingm1/test.git/': OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 0
+//换个vpn
+
+
 git add .  
 git commit  -m  "默认提交"  
 git push -u origin main   
