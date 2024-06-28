@@ -7,5 +7,5 @@ git push -u origin main   //此操作是把本地仓库push到github上面，第
 
 
 git add .  
-git commit  -m  "默认提交"  
+git commit  -m  "default"  
 git push -u origin main   
