@@ -2,3 +2,23 @@
 //自动关机
 1.taskschd.msc
 2.按照周赛分数刷题：https://huxulm.github.io/lc-rating/
+class Solution {
+public:
+	int minPathCost(vector<vector<int>>& grid, vector<vector<int>>& moveCost) {
+		int m = grid.size(), n = grid[0].size();
+		vector<vector<int>> dp(m, vector<int>(n));
+		for (int j = 0; j < n; j++)
+			dp[0][j] = grid[0][j];
+		for (int i = 1; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				int ans = INT_MAX;
+				if (i - 1 >= 0)
+					ans = min(dp[i - 1][j], ans);
+				dp[i][j] = ans + grid[i][j];
+			}
+		}
+		return *ranges::min_element((dp[m - 1]));
+	}
+};
