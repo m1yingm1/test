@@ -5,7 +5,7 @@ git push -u origin main   //此操作是把本地仓库push到github上面，第
 //unable to access 'https://github.com/m1yingm1/test.git/': OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 0
 //换个vpn
 
-
+git pull
 git add .  
 git commit  -m  "default"  
 git push -u origin main   
