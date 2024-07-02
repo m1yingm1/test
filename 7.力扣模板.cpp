@@ -1,28 +1,12 @@
-
 //力扣模板
-按照周赛分数刷题：https://huxulm.github.io/lc-rating/
+/*按照周赛分数刷题：https://huxulm.github.io/lc-rating/
 git pull
 git add .  
 git commit  -m  "default"  
 git push -u origin main   
+*/
 
-1.//【模板】恰好装满型 0 - 1 背包
-class Solution {
-public:
-	int lengthOfLongestSubsequence(vector<int>& nums, int target) {
-		vector<int> dp(target + 1, INT_MIN);
-		dp[0] = 0;
-		int sum = 0;
-		for (int num : nums) {
-			sum = min(sum + num, target);
-			for (int j = sum; j >= num; j--) 
-				dp[j] = max(dp[j], dp[j - num] + 1);
-		}
-		return dp[target] > 0 ? dp[target] : -1;
-	}
-};
-
-2.   3193. 统计逆序对的数目
+// 1. 3193统计逆序对的数目,https://leetcode.cn/problems/count-the-number-of-inversions/solutions/2819143/jiao-ni-yi-bu-bu-si-kao-dpcong-ji-yi-hua-974t/
 class Solution {
 	const int MOD = 1e9 + 7;
 public:
@@ -61,12 +45,8 @@ public:
 	}
 };
 
-作者：灵茶山艾府
-链接：https://leetcode.cn/problems/count-the-number-of-inversions/solutions/2819143/jiao-ni-yi-bu-bu-si-kao-dpcong-ji-yi-hua-974t/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
-3.class Solution {
+// 2. 2065最大化一张图中的路径价值,https://leetcode.cn/problems/maximum-path-quality-of-a-graph/?envType=daily-question&envId=2024-07-01
+class Solution {
 public:
 	int maximalPathQuality(vector<int>& values, vector<vector<int>>& edges, int max_time) {
 		int n = values.size();
@@ -97,5 +77,77 @@ public:
 			};
 		dfs(dfs, 0, 0, values[0]);
 		return ans;
+	}
+};
+
+//3.【模板】恰好装满型 0 - 1 背包
+//2915和为目标值的最长子序列的长度，https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/
+class Solution {
+public:
+	int lengthOfLongestSubsequence(vector<int>& nums, int target) {
+		vector<int> dp(target + 1, INT_MIN);
+		dp[0] = 0;
+		int sum = 0;
+		for (int num : nums) {
+			sum = min(sum + num, target);
+			for (int j = sum; j >= num; j--) 
+				dp[j] = max(dp[j], dp[j - num] + 1);
+		}
+		return dp[target] > 0 ? dp[target] : -1;
+	}
+};
+
+// 4. 416分割等和子集，https://leetcode.cn/problems/partition-equal-subset-sum/
+class Solution {
+public:
+	bool canPartition(vector<int>& nums) {
+		int sum = reduce(nums.begin(), nums.end());
+		if (sum & 1)
+			return false;
+		int n = nums.size();
+		int halfSum = sum / 2;
+		vector<vector<int>> memo(n, vector<int>(halfSum + 1, -1)); 
+		auto dfs = [&](auto&& dfs, int i, int target) -> bool {
+			if (i < 0) 
+				return target == 0;
+			int& res = memo[i][target]; 
+			if (res != -1)  
+				return res;
+			if (target >= nums[i])
+			{
+				res = dfs(dfs, i - 1, target - nums[i]);
+				if (res) 
+					return true;
+			}
+			res = dfs(dfs, i - 1, target);
+			return res;
+		};
+		return dfs(dfs, n - 1, halfSum);
+	}
+};
+
+// 5. 3180执行操作可获得的最大总奖励 I https://leetcode.cn/problems/maximum-total-reward-using-operations-i/description/
+class Solution {
+public:
+	int maxTotalReward(vector<int>& rewardValues) {
+		ranges::sort(rewardValues);
+		rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()), rewardValues.end());
+		bitset<20> f{ 1 };
+		//bitset<100000> f{ 1 };
+		for (int v : rewardValues) {
+			int shift = f.size() - v;
+			// 左移 shift 再右移 shift，把所有 >= v 的比特位置 0
+			// f |= f << shift >> shift << v;
+			auto curF = f << shift;
+			curF = curF >> shift;
+			curF = curF << v;
+			f |= curF;
+			//f |= f << shift >> (shift - v); // 简化上式
+		}
+		for (int i = rewardValues.back() * 2 - 1; ; i--) {
+			if (f.test(i))
+				return i;
+		}
+		return -1;
 	}
 };
