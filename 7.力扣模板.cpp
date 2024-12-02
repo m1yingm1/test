@@ -126,28 +126,28 @@ public:
 	}
 };
 
-// 5. 3180执行操作可获得的最大总奖励 I https://leetcode.cn/problems/maximum-total-reward-using-operations-i/description/
+5.322. 零钱兑换https://leetcode.cn/problems/coin-change/description/
+
+6.518零钱兑换 II,https://leetcode.cn/problems/coin-change-ii/
 class Solution {
 public:
-	int maxTotalReward(vector<int>& rewardValues) {
-		ranges::sort(rewardValues);
-		rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()), rewardValues.end());
-		bitset<20> f{ 1 };
-		//bitset<100000> f{ 1 };
-		for (int v : rewardValues) {
-			int shift = f.size() - v;
-			// 左移 shift 再右移 shift，把所有 >= v 的比特位置 0
-			// f |= f << shift >> shift << v;
-			auto curF = f << shift;
-			curF = curF >> shift;
-			curF = curF << v;
-			f |= curF;
-			//f |= f << shift >> (shift - v); // 简化上式
-		}
-		for (int i = rewardValues.back() * 2 - 1; ; i--) {
-			if (f.test(i))
-				return i;
-		}
-		return -1;
+	int change(int amount, vector<int>& coins) {
+		int n = coins.size();
+		vector<vector<int>> memo(n, vector<int>(amount + 1, -1));
+		auto dfs = [&](auto&& dfs, int i, int amount)->int {
+			if (i < 0)
+				return amount == 0 ? 1:0;
+			int& res = memo[i][amount];
+			if (res != -1)
+				return res;
+			res = 0;
+			if (amount >= coins[i])
+				res += dfs(dfs, i, amount - coins[i]);
+			return res += dfs(dfs, i - 1, amount);
+			};
+		int ans = dfs(dfs, n - 1, amount);
+		return ans ;
 	}
 };
+
+

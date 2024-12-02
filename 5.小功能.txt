@@ -1,4 +1,4 @@
-
+ 52G100%off
 //自动关机
 1.taskschd.msc
 2.按照周赛分数刷题：https://huxulm.github.io/lc-rating/
