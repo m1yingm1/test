@@ -1,0 +1,31 @@
+ssh git@113.44.129.143
+
+mkdir -p /home/git/repos/valentine.git
+cd /home/git/repos/valentine.git
+git init --bare
+
+git clone git@113.44.129.143:/home/git/repos/valentine.git
+
+git add .
+git commit -m "First commit"
+git push 
+
+
+server {
+    listen 2016;
+    server_name _;  # 或者你的域名/IP
+    root /home/zwj/coding/valentine;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+http://113.44.129.143:2016/static/index.html
+
+#检测
+curl -I http://localhost:2016/index.html
+
+#权限
+

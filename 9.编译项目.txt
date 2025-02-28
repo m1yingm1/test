@@ -1,0 +1,19 @@
+mkdir build
+cd build
+
+cmake .. -G "Visual Studio 17 2022" -A x64
+cmake --build . --config Release
+
+删除文件
+Remove-Item * -Recurse -Force
+
+步骤 5: 安装 GLFW（可选）
+如果你希望将 GLFW 安装到系统路径，以便在其他项目中使用，可以运行以下命令：
+
+cmake --install .
+默认情况下，这会将文件安装到 /usr/local（Linux/macOS）或者 C:/Program Files（Windows）。你可以通过在 CMake 配置时指定 CMAKE_INSTALL_PREFIX 来更改安装路径。
+
+例如：
+
+cmake .. -DCMAKE_INSTALL_PREFIX=C:/MyLibraries
+cmake --install .

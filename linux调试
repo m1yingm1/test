@@ -1,0 +1,21 @@
+g++ -g -o my_program main.cpp
+
+gdb ./my_program
+
+break main
+
+break main:10
+
+run
+
+print x
+
+堆栈：backtrace
+
+(gdb) step  # 进入函数调用
+(gdb) next  # 执行到下一行
+
+(gdb) set var x = 42
+
+continue
+quit

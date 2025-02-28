@@ -26,3 +26,11 @@ public:
 ```c++ []
  
 ```
+4.# py 万能头文件
+from collections import *
+from functools import *
+from itertools import *
+from typing import *
+from heapq import *
+from bisect import *
+# from sortedcontainers import *
